@@ -14,7 +14,7 @@ export const getInventoryListCached = cache(async (
     }
 
     const response = await fetch(
-      "https://api.tourvis.com/fe/inventory/getInventoryList",
+      "https://edge.tourvis.com/tvcomm/fe/inventory/getInventoryList",
       {
         method: "POST",
         headers: {
@@ -33,7 +33,16 @@ export const getInventoryListCached = cache(async (
     );
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      // 에러 응답 본문 확인
+      let errorMessage = `HTTP error! status: ${response.status}`;
+      try {
+        const errorBody = await response.text();
+        console.error(`API Error Response (${response.status}):`, errorBody);
+        errorMessage += ` - ${errorBody}`;
+      } catch (e) {
+        console.error(`Failed to read error response body:`, e);
+      }
+      throw new Error(errorMessage);
     }
 
     const data = await response.json();

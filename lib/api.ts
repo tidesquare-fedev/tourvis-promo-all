@@ -48,7 +48,7 @@ export async function getInventoryList(
 ): Promise<InventoryResponse> {
   try {
     const response = await fetch(
-      "https://api.tourvis.com/fe/inventory/getInventoryList",
+      "https://edge.tourvis.com/tvcomm/fe/inventory/getInventoryList",
       {
         method: "POST",
         headers: {
