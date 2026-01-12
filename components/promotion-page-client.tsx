@@ -149,9 +149,9 @@ function PromotionCard({
   const linkUrl =
     promotion.linkUrl || promotion.link || promotion.url || promotion.href;
 
-  const imageHeight = "202.453px"; // 고정 높이로 Next.js 이미지 옵티마이저 안정화
+  const imageHeight = "202.453px"; // 고정 높이 (컨테이너에만 적용)
+  // 롤백: 모두 object-contain으로 잘림 방지
   const imageClassName = "object-contain";
-  const imageStyle = { height: imageHeight };
   const containerClassName =
     "relative w-full bg-gray-100 flex items-center justify-center overflow-hidden";
   const containerStyle = { height: imageHeight };
@@ -176,9 +176,6 @@ function PromotionCard({
               fill
               sizes="(min-width:1280px) 25vw, (min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw"
               className={imageClassName}
-              style={{
-                ...(imageStyle as React.CSSProperties),
-              }}
               loading="lazy"
               decoding="async"
               onError={(e) => {
