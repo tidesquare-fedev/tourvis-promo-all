@@ -48,7 +48,7 @@ export default function PromotionPage() {
     });
 
     try {
-      const response = await fetch('/api/promotions', {
+      const response = await fetch('/marketing/all/api/promotions', {
         // 클라이언트 사이드에서도 캐싱 활용
         next: { revalidate: 300 }
       });
