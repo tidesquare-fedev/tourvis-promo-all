@@ -9,20 +9,12 @@ const nextConfig = {
         {
           protocol: "https",
           hostname: "cdns.tourvis.com",
-          pathname: "/common/dist/images/**",
+          pathname: "/**",
         },
         {
           protocol: "https",
           hostname: "image.tourvis.com",
-          pathname: "/images/**",
-        },
-        {
-          protocol: "https",
-          hostname: "**",
-        },
-        {
-          protocol: "http",
-          hostname: "**",
+          pathname: "/**",
         },
       ],
       formats: ["image/webp", "image/avif"],

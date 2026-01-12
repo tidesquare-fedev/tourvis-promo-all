@@ -139,10 +139,11 @@ function PromotionCard({
   category: PromotionCategory;
 }) {
   const imageUrlRaw = promotion.imageUrl;
-  const imageUrl =
+  const normalizedUrl =
     imageUrlRaw && imageUrlRaw.startsWith("//")
       ? `https:${imageUrlRaw}`
       : imageUrlRaw;
+  const imageUrl = normalizedUrl ? encodeURI(normalizedUrl) : normalizedUrl;
   const title =
     promotion.title || promotion.name || promotion.subject || "제목 없음";
   const linkUrl =
