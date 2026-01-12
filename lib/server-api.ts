@@ -27,8 +27,8 @@ export const getInventoryListCached = cache(async (
           limit,
           page,
         }),
-        // Next.js fetch 캐싱 설정 (5분간 캐시)
-        next: { revalidate: 300 }
+        // Next.js fetch 캐싱 설정 (60초 캐시)
+        next: { revalidate: 60 }
       }
     );
 

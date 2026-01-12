@@ -13,9 +13,9 @@ export async function GET() {
         errors,
       },
     }, {
-      // HTTP 캐싱 헤더 설정 (5분)
+      // HTTP 캐싱 헤더 설정 (60초, 재검증 5분)
       headers: {
-        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
       },
     });
   } catch (error) {
