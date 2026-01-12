@@ -13,9 +13,44 @@
 
 ### 배포 시 확인 사항
 
-1. **환경 변수**
-   - 현재 외부 API를 직접 호출하므로 환경 변수 불필요
-   - 필요시 Vercel 대시보드에서 환경 변수 설정 가능
+1. **환경 변수 (필수)**
+   
+   Vercel 대시보드에서 다음 환경 변수를 설정해야 합니다:
+   
+   | 변수명 | 값 | 설명 |
+   |--------|-----|------|
+   | `NEXT_PUBLIC_APP_ENV` | `production` 또는 `development` | 환경 설정 (운영/개발) |
+   | `NEXT_PUBLIC_APP_BRAND` | `tourvis` | 브랜드명 |
+   
+   **운영 환경 설정:**
+   - `NEXT_PUBLIC_APP_ENV=production`
+   - 도메인: `tourvis.com`
+   
+   **개발 환경 설정:**
+   - `NEXT_PUBLIC_APP_ENV=development`
+   - 도메인: `d.tourvis.com`
+   
+   **Vercel에서 환경 변수 설정 방법:**
+   1. Vercel 대시보드 → 프로젝트 선택
+   2. Settings → Environment Variables
+   3. 위의 환경 변수들을 추가
+   4. 각 환경(Production, Preview, Development)에 맞게 설정
+   
+   **환경별 설정 예시:**
+   
+   **운영 환경 (Production):**
+   ```
+   NEXT_PUBLIC_APP_ENV=production
+   NEXT_PUBLIC_APP_BRAND=tourvis
+   ```
+   → 도메인: `tourvis.com`
+   
+   **개발 환경 (Preview/Development):**
+   ```
+   NEXT_PUBLIC_APP_ENV=development
+   NEXT_PUBLIC_APP_BRAND=tourvis
+   ```
+   → 도메인: `d.tourvis.com`
 
 2. **빌드 설정**
    - Framework: Next.js
@@ -56,12 +91,54 @@ npm run build
 ```
 빌드가 성공하는지 확인하세요.
 
+## Nginx 도메인 설정
+
+### 환경별 도메인
+- **운영 환경**: `tourvis.com`
+- **개발 환경**: `d.tourvis.com`
+
+### Nginx 설정 예시
+```nginx
+# 운영 환경
+server {
+    listen 80;
+    server_name tourvis.com;
+    
+    location / {
+        proxy_pass http://vercel-deployment-url;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+# 개발 환경
+server {
+    listen 80;
+    server_name d.tourvis.com;
+    
+    location / {
+        proxy_pass http://vercel-deployment-url;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
 ## 문제 해결
 
 ### 빌드 실패 시
 - `npm run build` 로컬에서 실행하여 에러 확인
 - Node.js 버전 확인 (권장: 18.x 이상)
+- 환경 변수가 올바르게 설정되었는지 확인
 
 ### API 호출 실패 시
 - 외부 API 서버 상태 확인
 - CORS 설정 확인 (필요시)
+
+### 환경 변수 관련
+- 환경 변수가 설정되지 않으면 기본값(production)으로 동작
+- Vercel 대시보드에서 환경 변수 확인 및 재배포

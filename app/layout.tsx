@@ -4,6 +4,7 @@ import "./globals.css";
 import TourvisPcGnb from "@/registry/pc/block/pc-gnb/tourvis-pc-gnb";
 import TourvisBottomTabBar from "@/registry/mo/block/mo-bottom-tab-bar/tourvis-bottom-tab-bar";
 import Script from "next/script";
+import { APP_ENV, isProduction } from "@/lib/env";
 
 export const metadata: Metadata = {
   title: "여행 프로모션 총정리 | 항공·숙소·투어·패키지 할인 | 투어비스",
@@ -15,6 +16,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // 환경 변수에 따라 env 설정
+  const env = isProduction() ? "production" : "development";
+  
   return (
     <html lang="ko">
       <Script
@@ -22,9 +26,9 @@ export default function RootLayout({
         strategy="afterInteractive"
       />
       <body className="font-pretendard antialiased">
-        <TourvisPcGnb env="production" />
+        <TourvisPcGnb env={env} />
         {children}
-        <TourvisBottomTabBar env="production" />
+        <TourvisBottomTabBar env={env} />
       </body>
     </html>
   );

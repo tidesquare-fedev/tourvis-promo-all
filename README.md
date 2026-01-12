@@ -65,9 +65,21 @@ npm start
 
 ## 기술 스택
 
-- Next.js 16.0.3
+- Next.js 16.1.0
 - React 19.2.0
 - TypeScript
 - Tailwind CSS
 - Radix UI
 
+## 환경 변수
+
+프로젝트는 다음 환경 변수를 사용합니다:
+
+- `NEXT_PUBLIC_APP_ENV`: `production` (운영) 또는 `development` (개발)
+- `NEXT_PUBLIC_APP_BRAND`: `tourvis`
+
+### 환경별 도메인
+- **운영 환경**: `tourvis.com`
+- **개발 환경**: `d.tourvis.com`
+
+로컬 개발 시 `.env.local` 파일을 생성하여 환경 변수를 설정할 수 있습니다.
