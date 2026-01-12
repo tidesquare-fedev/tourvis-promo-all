@@ -8,6 +8,11 @@ export const getInventoryListCached = cache(async (
   limit: number = 50
 ): Promise<InventoryResponse> => {
   try {
+    const apiKey = process.env.TOURVIS_API_KEY;
+    if (!apiKey) {
+      throw new Error("TOURVIS_API_KEY 환경 변수가 설정되지 않았습니다.");
+    }
+
     const response = await fetch(
       "https://api.tourvis.com/fe/inventory/getInventoryList",
       {
@@ -15,6 +20,7 @@ export const getInventoryListCached = cache(async (
         headers: {
           accept: "application/json",
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
           uniqCode,
