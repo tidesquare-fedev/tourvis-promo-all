@@ -138,7 +138,11 @@ function PromotionCard({
   promotion: InventoryItem;
   category: PromotionCategory;
 }) {
-  const imageUrl = promotion.imageUrl;
+  const imageUrlRaw = promotion.imageUrl;
+  const imageUrl =
+    imageUrlRaw && imageUrlRaw.startsWith("//")
+      ? `https:${imageUrlRaw}`
+      : imageUrlRaw;
   const title =
     promotion.title || promotion.name || promotion.subject || "제목 없음";
   const linkUrl =

@@ -4,7 +4,7 @@ const nextConfig = {
       ignoreBuildErrors: true,
     },
     images: {
-      unoptimized: false, // 이미지 옵티마이저 사용
+      unoptimized: false, // Next Image Optimizer 사용
       remotePatterns: [
         {
           protocol: "https",
@@ -20,7 +20,12 @@ const nextConfig = {
           protocol: "https",
           hostname: "**",
         },
+        {
+          protocol: "http",
+          hostname: "**",
+        },
       ],
+      formats: ["image/webp", "image/avif"],
     },
     basePath: "/marketing/all",
     experimental: {
