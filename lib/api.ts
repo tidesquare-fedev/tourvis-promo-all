@@ -86,17 +86,17 @@ export async function getInventoryList(
       };
     } else {
       // 예상치 못한 구조
-      console.warn("Unexpected API response structure:", data);
+      console.warn("[Client] Unexpected API response structure");
       return {
         success: false,
-        message: "예상치 못한 응답 구조입니다.",
+        message: "데이터를 불러오는데 실패했습니다.",
       };
     }
   } catch (error) {
-    console.error("Error fetching inventory list:", error);
+    console.error("[Client] Error fetching inventory list");
     return {
       success: false,
-      message: error instanceof Error ? error.message : "Unknown error",
+      message: "데이터를 불러오는데 실패했습니다.",
     };
   }
 }

@@ -1,29 +1,30 @@
-import { NextResponse } from 'next/server';
-import { getAllPromotions } from '@/lib/server-api';
+import { NextResponse } from "next/server";
+import { getAllPromotions } from "@/lib/server-api";
 
-// API Route에서 서버 사이드로 모든 프로모션 데이터를 가져오고 캐싱
+const CACHE_CONTROL_HEADER = "public, s-maxage=60, stale-while-revalidate=300";
+
 export async function GET() {
   try {
     const { promotions, errors } = await getAllPromotions();
     
-    return NextResponse.json({
-      success: true,
-      data: {
-        promotions,
-        errors,
+    return NextResponse.json(
+      {
+        success: true,
+        data: { promotions, errors },
       },
-    }, {
-      // HTTP 캐싱 헤더 설정 (60초, 재검증 5분)
-      headers: {
-        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
-      },
-    });
+      {
+        headers: {
+          "Cache-Control": CACHE_CONTROL_HEADER,
+        },
+      }
+    );
   } catch (error) {
-    console.error('Error in promotions API route:', error);
+    // 서버 로그에만 상세 정보 기록
+    console.error("[Server] Error in promotions API route:", error);
     return NextResponse.json(
       {
         success: false,
-        message: error instanceof Error ? error.message : 'Unknown error',
+        message: "데이터를 불러오는데 실패했습니다.",
       },
       { status: 500 }
     );

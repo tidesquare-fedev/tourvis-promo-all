@@ -4,8 +4,11 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // 프로덕션에서 소스맵 비활성화 (보안)
+  productionBrowserSourceMaps: false,
   images: {
-    unoptimized: false, // Next Image Optimizer 사용
+    unoptimized: false,
+    formats: ["image/webp"],
     remotePatterns: [
       {
         protocol: "https",
@@ -18,8 +21,6 @@ const nextConfig = {
         pathname: "/**",
       },
     ],
-    // AVIF 미사용, WebP만 허용
-    formats: ["image/webp"],
   },
   basePath: "/marketing/all",
   experimental: {

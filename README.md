@@ -1,85 +1,83 @@
-# 투어비스 프로모션 모아보기
+# 투어비스 프로모션 페이지
 
-공통, 항공, 호텔, 투티, 패키지의 프로모션을 한눈에 볼 수 있는 페이지입니다.
+항공, 숙소, 투어, 패키지의 프로모션을 한 곳에서 확인할 수 있는 통합 프로모션 페이지입니다.
 
-## 시작하기
+## 주요 기능
 
-### 1. 의존성 설치
+- **SSR/ISR**: 서버 사이드 렌더링과 60초 재검증으로 안정적이고 빠른 초기 로딩
+- **WebP 이미지 최적화**: Next.js Image Optimizer를 통한 자동 WebP 변환
+- **캐싱 전략**: 서버/클라이언트 다층 캐싱으로 성능 최적화
+- **반응형 디자인**: 데스크톱/모바일 최적화 UI
+- **SEO 최적화**: 메타데이터 및 시맨틱 HTML 구조
 
-```bash
-npm install
-```
+## 기술 스택
 
-### 2. 개발 서버 실행
-
-```bash
-npm run dev
-```
-
-브라우저에서 [http://localhost:3000](http://localhost:3000)을 열어 확인하세요.
-
-### 3. 빌드
-
-```bash
-npm run build
-```
-
-### 4. 프로덕션 실행
-
-```bash
-npm start
-```
+- **프레임워크**: Next.js 16 (App Router, Turbopack)
+- **언어**: TypeScript
+- **스타일링**: Tailwind CSS v4
+- **UI 컴포넌트**: Radix UI
+- **폰트**: Pretendard
 
 ## 프로젝트 구조
 
 ```
 ├── app/
-│   ├── layout.tsx          # 루트 레이아웃 (GNB, 푸터 포함)
-│   ├── page.tsx            # 프로모션 메인 페이지
-│   └── globals.css         # 전역 스타일
-├── base/
-│   └── web-component-wrapper.tsx  # 웹 컴포넌트 래퍼
-├── registry/
-│   ├── pc/
-│   │   └── block/
-│   │       └── pc-gnb/
-│   │           └── tourvis-pc-gnb.tsx  # PC GNB 컴포넌트
-│   └── mo/
-│       └── block/
-│           └── mo-bottom-tab-bar/
-│               └── tourvis-bottom-tab-bar.tsx  # 모바일 하단 탭바
+│   ├── api/
+│   │   └── promotions/          # 프로모션 데이터 API 라우트
+│   ├── globals.css              # 전역 스타일
+│   ├── layout.tsx               # 루트 레이아웃 (GNB, 푸터)
+│   └── page.tsx                 # 메인 페이지 (SSR)
 ├── components/
-│   └── ui/                 # UI 컴포넌트 (Tabs, Card 등)
-└── lib/
-    ├── api.ts              # API 호출 로직
-    └── utils.ts            # 유틸리티 함수
+│   ├── promotion-card.tsx       # 프로모션 카드 컴포넌트
+│   ├── promotion-page-client.tsx # 클라이언트 페이지 컴포넌트
+│   ├── tourvis-cont-top.tsx     # 모바일 헤더
+│   ├── tourvis-top-btn.tsx      # Top 버튼
+│   └── ui/                      # Radix UI 컴포넌트
+├── lib/
+│   ├── api.ts                   # API 타입 정의
+│   ├── constants.ts             # 상수 정의
+│   ├── env.ts                   # 환경 변수 유틸
+│   ├── image-utils.ts           # 이미지 유틸리티
+│   └── server-api.ts            # 서버 사이드 API 호출
+└── next.config.mjs              # Next.js 설정
 ```
 
-## 주요 기능
-
-- **카테고리별 프로모션 조회**: 공통, 항공, 호텔, 투티, 패키지별로 프로모션을 조회할 수 있습니다.
-- **탭 기반 UI**: 각 카테고리를 탭으로 전환하여 볼 수 있습니다.
-- **반응형 디자인**: PC와 모바일 환경을 모두 지원합니다.
-- **GNB 및 푸터**: 기존 GNB와 푸터 컴포넌트를 그대로 사용합니다.
 
 
-## 기술 스택
+## 개발 서버 실행
 
-- Next.js 16.1.0
-- React 19.2.0
-- TypeScript
-- Tailwind CSS
-- Radix UI
+```bash
+npm install
+npm run dev
+```
 
-## 환경 변수
+http://localhost:3000/marketing/all 에서 확인 가능합니다.
 
-프로젝트는 다음 환경 변수를 사용합니다:
+## 빌드 및 배포
 
-- `NEXT_PUBLIC_APP_ENV`: `production` (운영) 또는 `development` (개발)
-- `NEXT_PUBLIC_APP_BRAND`: `tourvis`
+```bash
+npm run build
+npm start
+```
 
-### 환경별 도메인
-- **운영 환경**: `tourvis.com`
-- **개발 환경**: `d.tourvis.com`
+### Vercel 배포
 
-로컬 개발 시 `.env.local` 파일을 생성하여 환경 변수를 설정할 수 있습니다.
+
+
+## 성능 최적화
+
+- **서버 사이드 캐싱**: React cache + Next.js fetch (60초)
+- **HTTP 캐싱**: s-maxage=60, stale-while-revalidate=300
+- **이미지 최적화**: WebP 포맷, lazy loading
+- **병렬 데이터 페칭**: 모든 카테고리 동시 로드
+
+## 브라우저 지원
+
+- Chrome (최신 2개 버전)
+- Safari (최신 2개 버전)
+- Firefox (최신 2개 버전)
+- Edge (최신 2개 버전)
+
+## 라이선스
+
+Proprietary - 투어비스 내부 프로젝트
