@@ -3,6 +3,7 @@ import "./globals.css";
 
 import TourvisPcGnb from "@/registry/pc/block/pc-gnb/tourvis-pc-gnb";
 import TourvisBottomTabBar from "@/registry/mo/block/mo-bottom-tab-bar/tourvis-bottom-tab-bar";
+import TourvisTopBtn from "@/components/tourvis-top-btn";
 import Script from "next/script";
 import { APP_ENV, isProduction } from "@/lib/env";
 
@@ -21,6 +22,14 @@ export default function RootLayout({
   
   return (
     <html lang="ko">
+      <head>
+        <link
+          rel="stylesheet"
+          as="style"
+          crossOrigin="anonymous"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+        />
+      </head>
       <Script
         src="https://d2um1hurm6o2hd.cloudfront.net/tourvis-static/common/common-widget.js?20250710"
         strategy="afterInteractive"
@@ -29,6 +38,7 @@ export default function RootLayout({
         <TourvisPcGnb env={env} />
         {children}
         <TourvisBottomTabBar env={env} />
+        <TourvisTopBtn />
       </body>
     </html>
   );

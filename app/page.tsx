@@ -9,6 +9,8 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
+import TourvisContTop from "@/components/tourvis-cont-top";
+import { isProduction } from "@/lib/env";
 
 export default function PromotionPage() {
   const [selectedCategory, setSelectedCategory] =
@@ -101,14 +103,21 @@ export default function PromotionPage() {
   const isLoading = loading[selectedCategory];
   const hasError = error[selectedCategory];
 
+  const env = isProduction() ? "production" : "development";
+
   return (
     <div className="min-h-screen bg-gray-50 pb-20 md:pb-0">
+      <TourvisContTop 
+        title="지금 진행 중인 여행 프로모션"
+        device="mo"
+        env={env}
+      />
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-xl md:text-3xl font-bold text-gray-900 mb-2 font-pretendard">
             지금 진행 중인 여행 프로모션
           </h1>
-          <p className="text-gray-600">
+          <p className="text-sm md:text-base text-gray-600 font-pretendard">
             항공 · 숙소 · 투어 · 패키지까지<br />
             지금 진행 중인 프로모션을 한 번에 모았어요
           </p>
@@ -126,7 +135,7 @@ export default function PromotionPage() {
               <TabsTrigger 
                 key={category} 
                 value={category}
-                className="data-[state=active]:text-white data-[state=active]:shadow-sm transition-all font-medium text-sm"
+                className="data-[state=active]:text-white data-[state=active]:shadow-sm transition-all font-medium text-sm font-pretendard"
                 style={{ borderRadius: '100px' }}
               >
                 {category}
@@ -153,30 +162,30 @@ export default function PromotionPage() {
                 className="mt-0"
               >
                 {headingText && (
-                  <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                  <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-6 font-pretendard">
                     {headingText}
                   </h2>
                 )}
-                {isLoading ? (
-                  <div className="flex items-center justify-center py-20">
-                    <Loader2 className="h-8 w-8 animate-spin text-gray-400" />
-                    <span className="ml-2 text-gray-600">로딩 중...</span>
-                  </div>
-                ) : hasError ? (
-                  <div className="text-center py-20">
-                    <p className="text-red-500 mb-4">{hasError}</p>
-                    <button
-                      onClick={() => fetchAllPromotions()}
-                      className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                    >
-                      다시 시도
-                    </button>
-                  </div>
-                ) : currentPromotions.length === 0 ? (
-                  <div className="text-center py-20">
-                    <p className="text-gray-500">표시할 프로모션이 없습니다.</p>
-                  </div>
-                ) : (
+              {isLoading ? (
+                <div className="flex items-center justify-center py-20">
+                  <Loader2 className="h-8 w-8 animate-spin text-gray-400" />
+                  <span className="ml-2 text-gray-600 font-pretendard">로딩 중...</span>
+                </div>
+              ) : hasError ? (
+                <div className="text-center py-20">
+                  <p className="text-red-500 mb-4 font-pretendard">{hasError}</p>
+                  <button
+                    onClick={() => fetchAllPromotions()}
+                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 font-pretendard"
+                  >
+                    다시 시도
+                  </button>
+                </div>
+              ) : currentPromotions.length === 0 ? (
+                <div className="text-center py-20">
+                  <p className="text-gray-500 font-pretendard">표시할 프로모션이 없습니다.</p>
+                </div>
+              ) : (
                   <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 ${
                     category === "메인" 
                       ? "lg:grid-cols-3 xl:grid-cols-4" 
@@ -258,11 +267,11 @@ function PromotionCard({ promotion, category }: { promotion: InventoryItem; cate
         </div>
       )}
       <CardHeader className="p-4">
-        <CardTitle className="line-clamp-2 text-sm" style={{ fontSize: '14px' }}>
+        <CardTitle className="line-clamp-2 text-sm font-pretendard" style={{ fontSize: '14px' }}>
           {title}
         </CardTitle>
         {description && (
-          <CardDescription className="line-clamp-3 text-xs mt-1">
+          <CardDescription className="line-clamp-3 text-xs mt-1 font-pretendard">
             {description}
           </CardDescription>
         )}
