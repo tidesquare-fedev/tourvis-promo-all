@@ -7,7 +7,7 @@ import {
   PromotionCategory,
 } from "@/lib/api";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
 import TourvisContTop from "@/components/tourvis-cont-top";
 import { isProduction } from "@/lib/env";
@@ -266,16 +266,6 @@ function PromotionCard({ promotion, category }: { promotion: InventoryItem; cate
           <div className="text-gray-400 text-sm">이미지 없음</div>
         </div>
       )}
-      <CardHeader className="p-4">
-        <CardTitle className="line-clamp-2 text-sm font-pretendard" style={{ fontSize: '14px' }}>
-          {title}
-        </CardTitle>
-        {description && (
-          <CardDescription className="line-clamp-3 text-xs mt-1 font-pretendard">
-            {description}
-          </CardDescription>
-        )}
-      </CardHeader>
     </Card>
   );
 }
