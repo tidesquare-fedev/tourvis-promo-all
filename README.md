@@ -62,20 +62,6 @@ npm start
 - **반응형 디자인**: PC와 모바일 환경을 모두 지원합니다.
 - **GNB 및 푸터**: 기존 GNB와 푸터 컴포넌트를 그대로 사용합니다.
 
-## API
-
-프로모션 데이터는 다음 API를 통해 가져옵니다:
-
-```
-POST https://api.tourvis.com/fe/inventory/getInventoryList
-```
-
-각 카테고리별 uniqCode:
-- 공통: `TV_IV_C_TOPBANNER`
-- 항공: `TV_IV_AIR_P_LINEBANNER`
-- 호텔: `TV_IV_HTL_TOPBANNER`
-- 투티: `TV_IV_TA_TOPBANNER`
-- 패키지: `TV_IV_PKG_TOPBANNER`
 
 ## 기술 스택
 
