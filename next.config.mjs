@@ -4,7 +4,23 @@ const nextConfig = {
       ignoreBuildErrors: true,
     },
     images: {
-      unoptimized: true,
+      unoptimized: false, // 이미지 옵티마이저 사용
+      remotePatterns: [
+        {
+          protocol: "https",
+          hostname: "cdns.tourvis.com",
+          pathname: "/common/dist/images/**",
+        },
+        {
+          protocol: "https",
+          hostname: "image.tourvis.com",
+          pathname: "/images/**",
+        },
+        {
+          protocol: "https",
+          hostname: "**",
+        },
+      ],
     },
     basePath: "/marketing/all",
     experimental: {
@@ -17,3 +33,4 @@ const nextConfig = {
     },
   }
   
+export default nextConfig;
